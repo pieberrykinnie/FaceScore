@@ -1,7 +1,7 @@
 # FaceScore
 
 <p align="center">
-   📃 <a href="https://arxiv.org/abs/2406.17100" target="_blank">Paper</a> • 🤗 <a href="https://huggingface.co/AIGCer-OPPO/FaceScore" target="_blank">Checkpoints</a> 
+   📃 <a href="https://arxiv.org/abs/2406.17100" target="_blank">Paper</a> • 🤗 <a href="https://huggingface.co/OPPOer/FaceScore" target="_blank">Checkpoints</a> 
 </p>
 
 **FaceScore: Benchmarking and Enhancing Face Quality in Human Generation**
@@ -46,7 +46,7 @@ face_score,box,confidences = face_score_model.get_reward(img_path)
 print(f'The face score of {img_path} is {face_score}, and the bounding box of the face(s) is {box}')
 
 ```
-You can also choose to load the model locally, after downloading the checkpoint in [FaceScore](https://huggingface.co/AIGCer-OPPO/FaceScore/tree/main).
+You can also choose to load the model locally, after downloading the checkpoint in [FaceScore](https://huggingface.co/OPPOer/FaceScore/tree/main).
 
 The output should be like as follow (the exact numbers may be slightly different depending on the compute device):
 
@@ -57,7 +57,7 @@ The face score of assets/Lecun.jpg is 3.993915319442749, and the bounding box of
 
 ## LoRA based on SDXL
 We leverage FaceScore to filter data and perform direct preference optimization on SDXL.
-The LoRA weight is [here](https://huggingface.co/AIGCer-OPPO/FaceScore-dpo-SDXL-LoRA/tree/main).
+The LoRA weight is [here](https://huggingface.co/OPPOer/FaceScore/tree/main).
 Here we provide a quick example:
 ```
 from diffusers import StableDiffusionXLPipeline, UNet2DConditionModel
@@ -75,7 +75,7 @@ vae = AutoencoderKL.from_pretrained(
 )
 pipe.vae = vae
 # You can load it locally
-pipe.load_lora_weights("AIGCer-OPPO/FaceScore-dpo-SDXL-LoRA")
+pipe.load_lora_weights("OPPOer/FaceScore/FaceLoRA")
 pipe.to('cuda')
 
 generator=torch.Generator(device='cuda').manual_seed(42)
@@ -125,13 +125,10 @@ Our codebase references the code from [ImageReward](https://github.com/THUDM/Ima
 ## Citation
 
 ```
-@misc{liao2024facescorebenchmarkingenhancingface,
-      title={FaceScore: Benchmarking and Enhancing Face Quality in Human Generation}, 
-      author={Zhenyi Liao and Qingsong Xie and Chen Chen and Hannan Lu and Zhijie Deng},
-      year={2024},
-      eprint={2406.17100},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2406.17100}, 
-}
+@article{liao2024facescore,
+  title={FaceScore: Benchmarking and Enhancing Face Quality in Human Generation},
+  author={Liao, Zhenyi and Xie, Qingsong and Chen, Chen and Lu, Hannan and Deng, Zhijie},
+  journal={arXiv preprint arXiv:2406.17100},
+  year={2024}
+
 ```
